@@ -13,7 +13,7 @@ class PembayaranController
 
         Pembayaran::create([
             'dokumen' => $filename,
-            'status' => 'uploaded'
+            'status' => 'uploaded_payment'
         ]);
     }
 }
