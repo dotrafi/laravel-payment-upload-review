@@ -2,6 +2,7 @@
 
 class PembayaranController
 {
+    // Upload payment document
     public function upload(Request $request)
     {
         $file = $request->file('dokumen');
