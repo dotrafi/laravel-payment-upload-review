@@ -2,17 +2,25 @@
 
 class PembayaranController
 {
-    public function upload(Request $request)
-    {
-        $file = $request->file('dokumen');
+   public function upload(Request $request)
+{
+    $request->validate([
+        'dokumen' => 'required|mimes:pdf|max:2048'
+    ]);
 
-        $filename = time() . '.pdf';
-
-        $file->move(public_path('dokumen'), $filename);
-
-        Pembayaran::create([
-            'dokumen' => $filename,
-            'status' => 'uploaded'
-        ]);
+    if (!$request->hasFile('dokumen')) {
+        return;
     }
+
+    $file = $request->file('dokumen');
+
+    $filename = uniqid() . '.pdf';
+
+    $file->move(public_path('dokumen'), $filename);
+
+    Pembayaran::create([
+        'dokumen' => $filename,
+        'status' => 'uploaded_payment'
+    ]);
+}
 }
